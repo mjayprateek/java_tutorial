@@ -3,33 +3,14 @@ from bs4 import *
 from urllib.parse import urljoin
 from mysql.connector import *
 import re
-
-# a list of words to ignore
-ignorewords = set(['the', 'of', 'to', 'and', 'a', 'an', 'as', 'is', 'in', 'it', 'from'])
-
-config = {'user' : 'root', 'password' : 'Villa#25', 'host' : '127.0.0.1', 'database' : 'mydb',}
-
-class Config:
-	@staticmethod
-	def localhost():
-		return {'user' : 'root', 'password' : 'Villa#25', 'host' : '127.0.0.1', 'database' : 'mydb',}
-
-
-class wordutil:
-	# Separate the words by any non-whitespace character
-	@staticmethod
-	def separatewords(text):
-		separator = re.compile(r'\W+')
-		return [s.lower() for s in separator.split(text) if s!='']
-
-	
-
+from my_wordutil import *
+from db_config import *
 
 class crawler:
 	#initialize the crawler with the name of the database
 
 	def __init__(self, dbname):
-		self.con = connect(**config)
+		self.con = connect(**Config.localhost())
 		self.cur = self.con.cursor(buffered = True)
 
 	def __del__(self):
@@ -71,7 +52,7 @@ class crawler:
 
 		#get the words
 		text = self.get_text_only(soup)
-		words = wordutil.separatewords(text)
+		words = WordUtil.separatewords(text)
 
 		#get the url id
 		urlid = self.get_entry_id('urls', 'url', url)
@@ -82,7 +63,7 @@ class crawler:
 			for i in range(len(words)):
 				word = words[i]
 
-				if(word in ignorewords): continue
+				if(word in WordUtil.ignorewords): continue
 
 				wordid = self.get_entry_id('words', 'word', word)
 
@@ -157,25 +138,14 @@ class crawler:
 
 						# doubt: we are getting text even from those 
 						# urls which do not have 'http' in the beginning
-						#print("processing link: " + str(link))
+						
 						linkText = self.get_text_only(link)
+						#print("LinkText for %s : %s" % (link, linkText))
 						self.addlinkref(page, url, linkText)
 
 				self.dbcommit()
 
 			pages = newpages
-
-
-class searcher:
-	def __init__(self, dbname):
-		self.con = connect(**Config.localhost())
-		self.cur = self.con.cursor()
-
-	def __del__(self):
-		self.con.close()
-
-	def getmatchrows(self, q):
-		qwords = wordutil.separatewords(q)
 
 
 
