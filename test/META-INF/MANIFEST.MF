@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: portal/ /Users/prateekkhatri/.m2/repository/commons-codec/
+ commons-codec/1.4/commons-codec-1.4.jar /Users/prateekkhatri/.m2/repo
+ sitory/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar
+Created-By: 1.7.0_71 (Oracle Corporation)
+Main-Class: portal/TestClass
+
