@@ -1,4 +1,4 @@
-package in.novopay.room.booking.entity;
+package in.novopay.room.booking.model;
 
 import java.util.Date;
 

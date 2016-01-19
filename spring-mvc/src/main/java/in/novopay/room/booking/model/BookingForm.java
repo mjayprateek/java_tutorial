@@ -1,25 +1,31 @@
-package in.novopay.room.booking.entity;
+package in.novopay.room.booking.model;
 
 public class BookingForm {
 	private String roomSelect;
-	private String bookingDate;
+	private String bookFrom;
 	private String bookFromSlot;
+	private String bookTo;
 	private String bookToSlot;
 	private String repeatType;
 	private String repeatTill;
 	private String username;
-	
 	public String getRoomSelect() {
 		return roomSelect;
 	}
 	public void setRoomSelect(String roomSelect) {
 		this.roomSelect = roomSelect;
 	}
-	public String getBookingDate() {
-		return bookingDate;
+	public String getBookFrom() {
+		return bookFrom;
 	}
-	public void setBookingDate(String bookingDate) {
-		this.bookingDate = bookingDate;
+	public void setBookFrom(String bookFrom) {
+		this.bookFrom = bookFrom;
+	}
+	public String getBookTo() {
+		return bookTo;
+	}
+	public void setBookTo(String bookTo) {
+		this.bookTo = bookTo;
 	}
 	public String getRepeatType() {
 		return repeatType;

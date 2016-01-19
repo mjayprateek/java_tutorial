@@ -1,8 +1,8 @@
 package in.novopay.room.booking.service;
 
-import in.novopay.room.booking.entity.Room;
-import in.novopay.room.booking.entity.TimeSlot;
-import in.novopay.room.booking.entity.TimeSlot.RepeatType;
+import in.novopay.room.booking.model.Room;
+import in.novopay.room.booking.model.TimeSlot;
+import in.novopay.room.booking.model.TimeSlot.RepeatType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

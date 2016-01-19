@@ -1,6 +1,6 @@
 package in.novopay.room.booking.controllers;
 
-import in.novopay.room.booking.entity.BookingForm;
+import in.novopay.room.booking.model.BookingForm;
 import in.novopay.room.booking.service.IRoomBookingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
