@@ -26,11 +26,13 @@ public class RoomBookingController {
 		return "showMessage";
 	}
 	
-//	@RequestMapping(value="/rooms", method=RequestMethod.GET)
-//	public String getRooms(ModelMap map) {
-//		map.addAttribute("rooms", roomBookingService.getRooms());
-//		map.addAttribute("timeslots", roomBookingService.getTimeSlots());
-//		
-//		return "rooms";
-//	}
+	@RequestMapping(value="/rooms", method=RequestMethod.GET)
+	public String getRooms(ModelMap map) {
+		map.addAttribute("rooms", roomBookingService.getRooms());
+		map.addAttribute("timeslots", roomBookingService.getTimeSlots());
+		map.addAttribute("repeats", roomBookingService.getRepeats());
+		
+		return "rooms";
+	}
+
 }

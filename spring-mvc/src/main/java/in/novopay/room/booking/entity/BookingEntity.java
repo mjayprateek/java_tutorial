@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,36 +28,36 @@ public class BookingEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@JoinColumn(name = "room_id")
-	@ManyToOne
-	private RoomEntity room;
+	@OneToOne(mappedBy = "booking")
+	private BookingRepeat bookingRepeatInfo;
 	
-	@JoinColumn(name = "from")
 	@ManyToOne
+	@JoinColumn(name = "room_id")
+	private RoomEntity room;
+
+	@ManyToOne
+	@JoinColumn(name = "from")
 	private TimeSlotEntity from;
 	
-	@JoinColumn(name = "to")
 	@ManyToOne
+	@JoinColumn(name = "to")
 	private TimeSlotEntity to;
 	
-	@JoinColumn(name = "user_id")
+	@Column(name = "booking_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(style = "M-")
+	private Date date;
+	
+	@JoinColumn(name="user_id")
 	@ManyToOne
 	private UserEntity user;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	private Date bookingDate;
-	
-	@OneToOne
-	@JoinColumn(name = "booking_repeat")
-	private BookingRepeat bookingRepeat;
-	
 	@ManyToMany
 	@JoinTable(
-			name = "booking_participants",
-			joinColumns={@JoinColumn(name="booking_id", referencedColumnName="id")},
-		    inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")}
-	)
+		      name="booking_participants",
+		      joinColumns={@JoinColumn(name="booking_id", referencedColumnName="id")},
+		      inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")}
+		      )
 	private Set<UserEntity> participants = new HashSet<UserEntity>();
 
 	public Long getId() {
@@ -98,21 +99,23 @@ public class BookingEntity {
 	public void setUser(UserEntity user) {
 		this.user = user;
 	}
-
-	public Date getBookingDate() {
-		return bookingDate;
+	
+	public BookingRepeat getBookingRepeatInfo() {
+		return bookingRepeatInfo;
 	}
 
-	public void setBookingDate(Date bookingDate) {
-		this.bookingDate = bookingDate;
+	public void setBookingRepeatInfo(BookingRepeat bookingRepeatInfo) {
+		this.bookingRepeatInfo = bookingRepeatInfo;
 	}
 	
-	public BookingRepeat getBookingRepeat() {
-		return bookingRepeat;
-	}
-
-	public void setBookingRepeat(BookingRepeat bookingRepeat) {
-		this.bookingRepeat = bookingRepeat;
+	public UserEntity addParticipant(UserEntity user) {
+		if(user==null)
+			return null;
+		
+		getParticipants().add(user);
+		user.addBooking(this);
+		
+		return user;
 	}
 	
 	public Set<UserEntity> getParticipants() {
@@ -122,15 +125,13 @@ public class BookingEntity {
 	public void setParticipants(Set<UserEntity> participants) {
 		this.participants = participants;
 	}
+	
+	public Date getDate() {
+		return date;
+	}
 
-	public UserEntity addParticipant(UserEntity user) {
-		if(user==null)
-			return null;
-		
-		getParticipants().add(user);
-		user.addBooking(this);
-		
-		return user;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	@Override
@@ -157,7 +158,5 @@ public class BookingEntity {
 			return false;
 		return true;
 	}
-	
-	
 	
 }
