@@ -52,13 +52,15 @@ public class TestRoomBookingController {
 		assertEquals("showMessage", s);
 	}
 	
-//	@Test
-//	public void shouldReturnRoomsInfoInAModel() throws Exception {
-//		this.mockMvc.perform(get("/booking/rooms"))
-//			.andExpect(status().isOk())
-//			.andExpect(view().name("rooms"))
-//			.andExpect(model().attribute("rooms", notNullValue()))
-//			.andExpect(model().attribute("timeslots", notNullValue()));
-//	}
+	@Test
+	public void shouldReturnRoomsInfoInAModel() throws Exception {
+		this.mockMvc.perform(get("/booking/rooms"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("rooms"))
+			.andExpect(model().size(3))
+			.andExpect(model().attribute("rooms", notNullValue()))
+			.andExpect(model().attribute("timeslots", notNullValue()))
+			.andExpect(model().attribute("repeats", notNullValue()));
+	}
 
 }

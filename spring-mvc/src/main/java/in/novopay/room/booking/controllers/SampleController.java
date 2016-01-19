@@ -1,4 +1,4 @@
-package in.novopay.tutorial.controllers;
+package in.novopay.room.booking.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

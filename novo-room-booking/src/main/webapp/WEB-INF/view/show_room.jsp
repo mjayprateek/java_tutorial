@@ -4,14 +4,18 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+    
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Welcome</title>
+		<title>Room Information for ${roomName} </title>
 	</head> 
 	<body>
-		<c:url value="/view/showMessage.jsp" var="messageUrl" />
-		<a href="${messageUrl}">Click to enter</a>
+	<h2>Room Information </h2>
+	  Room Id: ${roomId} <br>
+	  Room Name: ${roomName}  <br>
+	  Room Location: ${roomLocation} <br> 
+		
 	</body>
 </html>
