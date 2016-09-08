@@ -39,7 +39,7 @@ public class TestRoomBookingController {
     public void testGetMessageReturnsCorrectStatusAndView() throws Exception {
         this.mockMvc.perform(get("/booking/message"))
             .andExpect(status().isOk())
-            .andExpect(view().name("showMessage"));
+            .andExpect(view().name("login"));
     }
 
 	@Test
@@ -49,7 +49,7 @@ public class TestRoomBookingController {
 		ModelMap map = new ModelMap();
 		String s = c.getMessage(map);
 		
-		assertEquals("showMessage", s);
+		assertEquals("login", s);
 	}
 	
 	@Test
@@ -61,6 +61,19 @@ public class TestRoomBookingController {
 			.andExpect(model().attribute("rooms", notNullValue()))
 			.andExpect(model().attribute("timeslots", notNullValue()))
 			.andExpect(model().attribute("repeats", notNullValue()));
+	}
+	
+	@Test
+	public void testPointerSwap() {
+		int a=5, b=10;
+		swap(a,b);
+		System.out.println("a: " + a + " b: " + b);
+	}
+	
+	private void swap(int a, int b) {
+		int temp = a;
+		a = b;
+		b = temp;
 	}
 
 }

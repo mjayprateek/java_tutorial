@@ -18,13 +18,9 @@ public class RoomBookingController {
 	@RequestMapping(value="/message", method=RequestMethod.GET)
 	public String getMessage(ModelMap map) {
 		map.addAttribute("message", "Welcome to Novo Booking");
-		return "showMessage";
+		return "login";
 	}
 	
-	@RequestMapping
-	public String getMessage2(ModelMap map) {
-		return "showMessage";
-	}
 	
 	@RequestMapping(value="/rooms", method=RequestMethod.GET)
 	public String getRooms(ModelMap map) {
